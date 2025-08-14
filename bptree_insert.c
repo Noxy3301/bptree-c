@@ -116,6 +116,9 @@ int split_temp_to_nodes(NODE *node, NODE *new_node, TEMP *temp) {
             new_node->child[i] = temp->child[split_index + i];
             new_node->num_keys++;
         }
+        
+        // Link leaf to new_leaf for linear traversal
+        node->child[N - 1] = new_node;
     } else {
         // Internal node split: middle key is promoted to parent
         // First half goes to original node
