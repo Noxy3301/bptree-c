@@ -37,6 +37,9 @@ extern NODE *g_root;
 // Initialization
 // ====================
 
+/**
+ * @brief Initialize the B+tree structure
+ */
 void bptree_init(void);
 
 // ====================
