@@ -23,6 +23,11 @@ void bptree_print_core(NODE *node) {
 }
 
 void bptree_print(NODE *node) {
+    if (node == NULL) {
+        printf("[]\n");
+        return;
+    }
+
 	bptree_print_core(node);
 	printf("\n");
 	fflush(stdout);
