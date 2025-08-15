@@ -88,6 +88,11 @@ NODE *find_leaf(NODE *node, int key);
  */
 NODE *find_sibling_node(NODE *node, NODE *child_node);
 
+/**
+ * @brief Find the leftmost leaf node in subtree
+ * @param node Root node of subtree to search
+ * @return Pointer to leftmost leaf node
+ */
 NODE *find_leftmost_leaf(NODE *node);
 
 /**
