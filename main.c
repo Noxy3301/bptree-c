@@ -39,7 +39,7 @@ int main(int argc, char *argv[]) {
             bptree_insert(key, NULL);
             bptree_print(g_root);
         } else if (strcmp(cmd, "del") == 0) {
-            // bptree_delete(key);  // TODO: implement
+            bptree_delete(key);
             bptree_print(g_root);
         } else {
             show_usage();

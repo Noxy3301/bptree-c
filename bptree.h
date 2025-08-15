@@ -78,6 +78,26 @@ void clear_node(NODE *node);
  */
 NODE *find_leaf(NODE *node, int key);
 
+/**
+ * @brief Find a sibling node for merging
+ * @param node Parent node containing the child
+ * @param child_node Target child node to find sibling for
+ * @return Pointer to sibling node (previous or next child)
+ * 
+ * Strategy: Return right sibling if leftmost child, otherwise return left sibling
+ */
+NODE *find_sibling_node(NODE *node, NODE *child_node);
+
+
+/**
+ * @brief Find parent key between child and sibling for merge/redistribution
+ * @param parent_node Parent node
+ * @param child_node Target child
+ * @param sibling_node Sibling node
+ * @return Boundary key in parent
+ */
+int find_parent_key(NODE *parent_node, NODE *child_node, NODE *sibling_node);
+
 // ====================
 // Insert
 // ====================
@@ -138,6 +158,50 @@ NODE *insert_in_node(NODE *node, int key, NODE *child_node);
 // Delete
 // ====================
 
+/**
+ * @brief Delete key from B+tree
+ * @param key Key to delete from the tree
+ */
+void bptree_delete(int key);
+
+/**
+ * @brief Delete entry and handle tree rebalancing (internal use)
+ * @param node Target node for deletion
+ * @param key Key to delete
+ * @param child_node Child node to delete (NULL for data stored at same index as key in leaf)
+ */
+void delete_entry(NODE *node, int key, NODE *child_node);
+
+/**
+ * @brief Delete key or child from node based on operation type
+ * @param node Target node
+ * @param key Key to delete
+ * @param child_node Child node to delete (NULL for data stored at same index as key in leaf)
+ */
+void delete_from_node(NODE *node, int key, NODE *child_node);
+
+/**
+ * @brief Merge all keys and children from node into sibling_node
+ * @param node Node to merge from
+ * @param sibling_node Sibling node to merge into
+ */
+void merge_node_into_sibling_node(NODE *node, NODE *sibling_node);
+
+/**
+ * @brief Count the number of non-NULL child pointers in a node
+ * @param node Node to count children for
+ * @return Number of valid child pointers
+ */
+int count_child(NODE *node);
+
+/**
+ * @brief Check if child node appears before sibling in parent
+ * @param parent_node Parent containing both nodes
+ * @param child_node Child node to check position
+ * @param sibling_node Sibling node to compare with
+ * @return 1 if child appears first, 0 if sibling appears first
+ */
+int check_node_order(NODE *parent_node, NODE *child_node, NODE *sibling_node);
 
 // ====================
 // Debug
