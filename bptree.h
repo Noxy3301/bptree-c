@@ -67,7 +67,7 @@ TEMP *alloc_temp(NODE *node);
 void clear_node(NODE *node);
 
 // ====================
-// Find
+// Utility
 // ====================
 
 /**

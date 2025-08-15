@@ -6,7 +6,7 @@ TARGET = bptree
 SOURCES = main.c \
 		  bptree.c \
 		  bptree_memory.c \
-		  bptree_find.c \
+		  bptree_util.c \
 		  bptree_insert.c \
 		  bptree_delete.c \
 		  bptree_scan.c \
