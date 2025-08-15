@@ -67,7 +67,7 @@ TEMP *alloc_temp(NODE *node);
 void clear_node(NODE *node);
 
 // ====================
-// Search
+// Find
 // ====================
 
 /**
@@ -88,6 +88,7 @@ NODE *find_leaf(NODE *node, int key);
  */
 NODE *find_sibling_node(NODE *node, NODE *child_node);
 
+NODE *find_leftmost_leaf(NODE *node);
 
 /**
  * @brief Find parent key between child and sibling for merge/redistribution
@@ -202,6 +203,22 @@ int count_child(NODE *node);
  * @return 1 if child appears first, 0 if sibling appears first
  */
 int check_node_order(NODE *parent_node, NODE *child_node, NODE *sibling_node);
+
+// ====================
+// Scan
+// ====================
+
+/**
+ * @brief Scan and print all keys in ascending order
+ */
+void bptree_scan_all(void);
+
+/**
+ * @brief Scan and print keys within specified range
+ * @param start_key Start of range (inclusive)
+ * @param end_key End of range (inclusive)
+ */
+void bptree_scan_range(int start_key, int end_key);
 
 // ====================
 // Debug

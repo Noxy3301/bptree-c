@@ -209,6 +209,9 @@ void merge_node_into_sibling_node(NODE *node, NODE *sibling_node) {
 	if(node->is_leaf == 0) {
 		sibling_node->child[sibling_node->num_keys] = node->child[node->num_keys];
 		sibling_node->child[sibling_node->num_keys]->parent = sibling_node;
+	} else {
+		// For leaf nodes, inherit the next pointer
+		sibling_node->child[N - 1] = node->child[N - 1];
 	}
 }
 

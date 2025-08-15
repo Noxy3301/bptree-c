@@ -5,7 +5,7 @@
 #include "bptree.h"
 
 void show_usage(void) {
-    printf("Usage: add <key> | del <key> | exit\n");
+    printf("Usage: add <key> | del <key> | scan | range <start> <end> | exit\n");
 }
 
 int main(int argc, char *argv[]) {
@@ -14,7 +14,7 @@ int main(int argc, char *argv[]) {
     
     char line[100];
     char cmd[10];
-    int key;
+    int key, start_key, end_key;
 
     bptree_init();
     show_usage();
@@ -28,17 +28,28 @@ int main(int argc, char *argv[]) {
             continue;
         }
         
-        if (strcmp(cmd, "exit") == 0) break;
-        
-        if (sscanf(line, "%s %d", cmd, &key) != 2) {
-            show_usage();
-            continue;
-        }
-        
-        if (strcmp(cmd, "add") == 0) {
+        if (strcmp(cmd, "exit") == 0) {
+            break;
+        } else if (strcmp(cmd, "scan") == 0) {
+            bptree_scan_all();
+        } else if (strcmp(cmd, "range") == 0) {
+            if (sscanf(line, "%s %d %d", cmd, &start_key, &end_key) != 3) {
+                show_usage();
+                continue;
+            }
+            bptree_scan_range(start_key, end_key);
+        } else if (strcmp(cmd, "add") == 0) {
+            if (sscanf(line, "%s %d", cmd, &key) != 2) {
+                show_usage();
+                continue;
+            }
             bptree_insert(key, NULL);
             bptree_print(g_root);
         } else if (strcmp(cmd, "del") == 0) {
+            if (sscanf(line, "%s %d", cmd, &key) != 2) {
+                show_usage();
+                continue;
+            }
             bptree_delete(key);
             bptree_print(g_root);
         } else {

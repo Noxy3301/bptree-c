@@ -9,6 +9,7 @@ SOURCES = main.c \
 		  bptree_find.c \
 		  bptree_insert.c \
 		  bptree_delete.c \
+		  bptree_scan.c \
 		  bptree_print.c
 OBJECTS = $(SOURCES:.c=.o)
 

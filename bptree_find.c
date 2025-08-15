@@ -49,3 +49,11 @@ int find_parent_key(NODE *parent_node, NODE *child_node, NODE *sibling_node) {
 
     return parent_node->key[i];
 }
+
+NODE *find_leftmost_leaf(NODE *node) {
+    while (node && !node->is_leaf) {
+        node = node->child[0];
+    }
+    
+    return node;
+}

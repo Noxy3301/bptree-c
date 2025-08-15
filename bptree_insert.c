@@ -27,11 +27,17 @@ void bptree_insert(int key, DATA *data) {
         // Create new leaf node
         new_leaf = alloc_leaf(leaf->parent);
 
+        // Set up leaf linking before clearing
+        new_leaf->child[N - 1] = leaf->child[N - 1];  // new_leaf points to leaf's next
+        
         // Clear the original leaf node
         clear_node(leaf);
 
         // Redistribute keys between original and new leaf nodes
         split_temp_to_nodes(leaf, new_leaf, temp);
+        
+        // Update leaf linking after split
+        leaf->child[N - 1] = new_leaf;  // leaf points to new_leaf
 
         // Promote key to parent level
         insert_in_parent(leaf, new_leaf->key[0], new_leaf);
