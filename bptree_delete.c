@@ -166,10 +166,21 @@ void delete_from_node(NODE *node, int key, NODE *child_node) {
         node->key[i] = node->key[i + 1];
     }
 
+    // Clear the last key (now duplicated or stale after shifting)
+    node->key[node->num_keys - 1] = 0;
+
     if (child_node == NULL) {
         // Leaf node: delete data at same index as key
+        // Shift data pointers left
         for(data_index; data_index < node->num_keys - 1; data_index++) {
             node->child[data_index] = node->child[data_index + 1];
+        }
+
+        // Clear the last data pointer
+        if (node->num_keys > 0) {
+            node->child[node->num_keys - 1] = NULL;
+        } else {
+            node->child[0] = NULL;
         }
     } else {
         // Internal node: find and delete specific child pointer
@@ -179,14 +190,15 @@ void delete_from_node(NODE *node, int key, NODE *child_node) {
             }
         }
 
+        // Shift child pointers left
         for (j; j < node->num_keys; j++) {
             node->child[j] = node->child[j + 1];
         }
+
+        // Clear the last child pointer
+        node->child[node->num_keys] = NULL;
     }
 
-    // Clear last elements (now duplicated or stale after shifting)
-    node->key[node->num_keys - 1] = 0;
-    node->child[node->num_keys] = NULL;
     node->num_keys--;
 }
 
