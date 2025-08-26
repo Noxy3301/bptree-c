@@ -5,14 +5,15 @@ void bptree_scan_all(void) {
     int i;
 
     if (g_root == NULL) {
-        printf("[]\n");
+        printf("RESULT: \n");
         return;
     }
 
     // Start from leftmost leaf
     current_leaf = find_leftmost_leaf(g_root);
-
-    printf("[ ");
+    
+    // Start with SCAN prefix for easy detection
+    printf("RESULT: ");
     
     // Traverse all leaf nodes using next leaf pointers
     while (current_leaf != NULL) {
@@ -25,7 +26,7 @@ void bptree_scan_all(void) {
         current_leaf = current_leaf->child[N - 1];
     }
 
-    printf("]\n");
+    printf("\n");
 }
 
 void bptree_scan_range(int start_key, int end_key) {
@@ -34,14 +35,15 @@ void bptree_scan_range(int start_key, int end_key) {
     int found_start = 0;
 
     if (g_root == NULL) {
-        printf("[]\n");
+        printf("RESULT: \n");
         return;
     }
 
     // Start from leftmost leaf
     current_leaf = find_leftmost_leaf(g_root);
-
-    printf("[ ", start_key, end_key);
+    
+    // Start with SCAN prefix for easy detection
+    printf("RESULT: ");
     
     // Traverse leaf nodes using next leaf pointers
     while (current_leaf != NULL) {
@@ -55,7 +57,7 @@ void bptree_scan_range(int start_key, int end_key) {
                 found_start = 1;
             } else if (found_start && key > end_key) {
                 // Past the end of range, stop scanning
-                printf("]\n");
+                printf("\n");
                 return;
             }
         }
@@ -70,5 +72,5 @@ void bptree_scan_range(int start_key, int end_key) {
         current_leaf = current_leaf->child[N - 1];
     }
     
-    printf("]\n");
+    printf("\n");
 }
